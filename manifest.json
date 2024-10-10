@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "version": "1.0.0",
+  "name": "Gno Sidecar",
+  "description": "A browser extension for Gnoweb and more broadly Gno, providing a set of devtools, tweaks and experimentation.",
+  "author": "Gno R&D",
+  "icons": {
+    "16": "images/icon_16.png",
+    "48": "images/icon_48.png",
+    "96": "images/icon_96.png",
+    "128": "images/icon_128.png"
+  },
+  "action": {
+    "default_popup": "popup/index.html"
+  },
+  "background": {
+    "chromium:service_worker": "background/background.ts",
+    "firefox:scripts": ["background/background.ts"]
+  },
+  "host_permissions": ["<all_urls>"],
+  "permissions": ["tabs", "scripting", "storage", "webNavigation"]
+}
