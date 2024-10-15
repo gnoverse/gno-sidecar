@@ -17,7 +17,32 @@ type SettingDetailsHandler = {
 }
 
 class IServerSettings implements Settings, ServerHandlers {
-  private settings: SettingDetailsHandler[] = []
+  private settings: SettingDetailsHandler[] = [
+    {
+      details: {
+        infos: {
+          category: "Gnoweb Tweaks",
+          name: "Direct transaction on Realms help",
+          help: "This add a button to make a transaction directly from a Realm help page on Gnoweb",
+        },
+        state: {
+          state: { toggle: true },
+          disabled: false,
+        },
+      },
+      handler: (details) => {
+        if ((details.state.state as SettingToggle).toggle == true) {
+          Server.addContentScript({
+            name: details.infos.name,
+            file: "scripts/gnowebTxButton.js",
+            match: /^.+\/r\/.+\?help/, // Gnoweb help page url
+          })
+        } else {
+          Server.removeContentScript(details.infos.name)
+        }
+      },
+    },
+  ]
   private settingMap: Map<string, SettingDetailsHandler> = new Map()
 
   async getSettingList(): Promise<SettingDetails[]> {
