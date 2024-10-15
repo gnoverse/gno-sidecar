@@ -25,11 +25,49 @@
     "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
+    "@semantic-release/git": "^10.0.1",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "extension": "latest",
     "node-polyfill-webpack-plugin": "^4.0.0",
+    "semantic-release-replace-plugin": "^1.2.7",
     "typescript": "5.3.3"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      [
+        "semantic-release-replace-plugin",
+        {
+          "replacements": [
+            {
+              "files": [
+                "manifest.json"
+              ],
+              "from": "\"version\": \".*\"",
+              "to": "\"version\": \"${nextRelease.version}\"",
+              "results": [
+                {
+                  "file": "manifest.json",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                }
+              ],
+              "countMatches": true
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "manifest.json"
+          ]
+        }
+      ]
+    ]
   },
   "private": true
 }
