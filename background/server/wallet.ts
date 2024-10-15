@@ -374,12 +374,52 @@ class IServerWallet implements Wallet, ServerHandlers {
     this.providerCurrent = undefined
   }
 
-  constructor() {
-    this.readWalletList()
-    this.readWalletCurrent()
-    this.readProviderList()
-    this.readProviderCurrent()
+  private async setInitialValues() {
+    const defaultWallets: Map<string, string> = new Map([
+      [
+        "Test1",
+        "source bonus chronic canvas draft south burst lottery vacant surface solve popular case indicate oppose farm nothing bullet exhibit title speed wink action roast",
+      ],
+    ])
+    const defaultProviders: Map<string, string> = new Map([
+      ["Portal Loop", "https://rpc.gno.land:443"],
+      ["Portal Loop (WebSocket)", "wss://rpc.gno.land:443/websocket"],
+      ["Test4", "https://rpc.test4.gno.land:443"],
+      ["Test4 (WebSocket)", "wss://rpc.test4.gno.land:443/websocket"],
+      ["Test3", "https://rpc.test3.gno.land:443"],
+      ["Test3 (WebSocket)", "wss://rpc.test3.gno.land:443/websocket"],
+      ["Staging", "https://rpc.staging.gno.land:443"],
+      ["Staging (WebSocket)", "wss://rpc.staging.gno.land:443/websocket"],
+    ])
+
+    await Storage.writeMapString("WalletList", defaultWallets)
+    await Storage.writeMapString("ProviderList", defaultProviders)
+    await Storage.writeString(
+      "WalletCurrent",
+      defaultWallets.keys().next().value,
+    )
+    await Storage.writeString(
+      "ProviderCurrent",
+      defaultProviders.keys().next().value,
+    )
+  }
+
+  async init() {
+    if ((await Storage.readBoolean("InitWalletDefault")) != true) {
+      await this.setInitialValues()
+      await Storage.writeBoolean("InitWalletDefault", true)
+    }
+
+    await this.readWalletList()
+    await this.readWalletCurrent()
+    await this.readProviderList()
+    await this.readProviderCurrent()
+
+    this.connectToProvider()
   }
 }
 
-export const ServerWallet = new IServerWallet()
+const asyncContructor = new IServerWallet()
+await asyncContructor.init()
+
+export const ServerWallet = asyncContructor

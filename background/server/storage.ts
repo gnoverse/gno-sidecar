@@ -1,6 +1,7 @@
 import type { SetSettingStateParams } from "../types/api"
 
 export const StorageKeys = [
+  "InitWalletDefault",
   "WalletCurrent",
   "WalletList",
   "ProviderCurrent",
@@ -10,6 +11,22 @@ export const StorageKeys = [
 export type StorageKey = (typeof StorageKeys)[number]
 
 export namespace Storage {
+  export const readBoolean = async (
+    key: StorageKey,
+  ): Promise<boolean | undefined> => {
+    const value = await chrome.storage.local.get(key)
+    if (value && (value[key] as boolean)) {
+      return value[key] as boolean
+    }
+  }
+
+  export const writeBoolean = async (
+    key: StorageKey,
+    value: boolean,
+  ): Promise<void> => {
+    await chrome.storage.local.set({ [key]: value })
+  }
+
   export const readString = async (
     key: StorageKey,
   ): Promise<string | undefined> => {
