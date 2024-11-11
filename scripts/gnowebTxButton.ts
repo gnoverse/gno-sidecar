@@ -14,7 +14,7 @@ const inject = () => {
 
   // Append button + text output to each func
   for (const func of divHelp.getElementsByClassName("func_spec")) {
-    // Get table body and insert it a row with header, output field and button
+    // Get table body and insert a row with a header, output field and button
     const table = func.getElementsByTagName("table")[0]
     table.style.width = "100%"
 
@@ -95,7 +95,7 @@ const inject = () => {
       // In case remote is Gnodev, replace tcp by http
       parsed.remote = parsed.remote?.replace(/^tcp:\/\//, "http://")
 
-      console.debug("Parsed command :", parsed)
+      console.debug("Parsed command:", parsed)
 
       return parsed
     }
@@ -108,7 +108,7 @@ const inject = () => {
       }
     }
 
-    // Bind an onClick handler to the button that :
+    // Bind an onClick handler to the button that:
     // - retrieves the command help text
     // - parses it to a CallMethodParams type
     // - run1e callMethod() on wallet selected in the background using client
@@ -163,18 +163,18 @@ const inject = () => {
           }
 
           console.info(
-            `Call succeeded :\n\nDecoded :\n${decoded}\n\nJSON :\n${JSON.stringify(result, null, 4)}`,
+            `Call succeeded:\n\nDecoded:\n${decoded}\n\nJSON:\n${JSON.stringify(result, null, 4)}`,
           )
         } catch (err) {
           output.style.color = "#F00"
           output.innerHTML = errToStr(err)
           console.error(
-            `Call failed for method <${params.method}>, with args <${params.args}> : ${errToStr(err)}`,
+            `Call failed for method <${params.method}>, with args <${params.args}>: ${errToStr(err)}`,
           )
         }
       } else {
         output.style.color = "#F00"
-        output.innerHTML = "Can't retrive eommand help text!"
+        output.innerHTML = "Can't retrieve command help text!"
       }
 
       button.innerHTML = "Make Tx"

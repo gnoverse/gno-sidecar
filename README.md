@@ -62,7 +62,7 @@ make build
 
 #### Target Browsers
 
-For each of the above Makefile rules, you can use the environment variable `BROWSER` to specify a target browser. You can either specify one of the following 3 values `chrome`, `edge` or `firefox` (default), or specify multiple values separated by a comma, e.g :
+For each of the above Makefile rules, you can use the environment variable `BROWSER` to specify a target browser. You can either specify one of the following 3 values `chrome`, `edge` or `firefox` (default), or specify multiple values separated by a comma, e.g:
 
 ```bash
 BROWSER=firefox,edge make build

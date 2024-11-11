@@ -39,7 +39,7 @@ function SettingInput({ setting: { infos, state } }: SettingInputProps) {
         setSelected(update)
       } catch (err) {
         console.error(
-          `Choice selection failed with name <${infos.name}> and error : ${err})`,
+          `Choice selection failed with name <${infos.name}> and error: ${err})`,
         )
       }
     }
@@ -79,7 +79,7 @@ function SettingInput({ setting: { infos, state } }: SettingInputProps) {
         setEnabled(update)
       } catch (err) {
         console.error(
-          `Toggle setting failed with name <${infos.name}> and error : ${err})`,
+          `Toggle setting failed with name <${infos.name}> and error: ${err})`,
         )
       }
     }
@@ -117,7 +117,7 @@ function SettingInput({ setting: { infos, state } }: SettingInputProps) {
         setText(update)
       } catch (err) {
         console.error(
-          `Content setting failed with name <${infos.name}> and error : ${err})`,
+          `Content setting failed with name <${infos.name}> and error: ${err})`,
         )
       }
     }
@@ -170,7 +170,7 @@ export default function SettingsScreen() {
         }
         setSettingCategoriesState(categories)
       } catch (err) {
-        console.error("Unable to fetch initial states :", err)
+        console.error("Unable to fetch initial states:", err)
       }
     })()
   }, [])

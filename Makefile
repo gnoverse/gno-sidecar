@@ -14,7 +14,7 @@ help:
 	@echo "   make build      ->  Build extension for prod (see BROWSER below)"
 	@echo "   make clean      ->  Clean up dependencies and generated files"
 	@echo
-	@echo "   BROWSER         ->  Env var used to specify a target, e.g : 'firefox,edge,chrome'"
+	@echo "   BROWSER         ->  Env var used to specify a target, e.g: 'firefox,edge,chrome'"
 
 start_dev: $(NODE_MODULES)
 	@cd $(MAKEFILE_DIR) && npm run dev -- --browser=$(BROWSER)

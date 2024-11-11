@@ -62,19 +62,19 @@ class IServerWallet implements Wallet, ServerHandlers {
       details.address =
         (await ServerWallet.walletCurrent?.gnoWallet.getAddress()) || ""
     } catch (err) {
-      console.debug("Unable to get address :", err)
+      console.debug("Unable to get address:", err)
     }
     try {
       details.account =
         (await ServerWallet.walletCurrent?.gnoWallet.getAccountNumber()) || -1
     } catch (err) {
-      console.debug("Unable to get account number :", err)
+      console.debug("Unable to get account number:", err)
     }
     try {
       details.balance =
         (await ServerWallet.walletCurrent?.gnoWallet.getBalance()) || -1
     } catch (err) {
-      console.debug("Unable to get balance :", err)
+      console.debug("Unable to get balance:", err)
     }
 
     return details
@@ -91,7 +91,7 @@ class IServerWallet implements Wallet, ServerHandlers {
     // Check if wallet exists in wallet list
     const mnemonic = ServerWallet.walletMap.get(name)
     if (mnemonic) {
-      // Instanciate a gnoWallet based on the associated mnemonic
+      // Instantiate a gnoWallet based on the associated mnemonic
       ServerWallet.walletCurrent = {
         name: name,
         gnoWallet: await GnoWallet.fromMnemonic(mnemonic),
@@ -160,7 +160,7 @@ class IServerWallet implements Wallet, ServerHandlers {
     // Check if provider exists in provider list
     const address = ServerWallet.providerMap.get(name)
     if (address) {
-      // Instanciate a gnoProvider based on the associated address
+      // Instantiate a gnoProvider based on the associated address
       ServerWallet.providerCurrent = {
         name: name,
         gnoProvider: newGnoProvider(address),
@@ -235,7 +235,7 @@ class IServerWallet implements Wallet, ServerHandlers {
         if (requestedAddress != currentAddress) {
           providerChanged = true
 
-          // Temporarly disconnect wallet from selected provider
+          // Temporarily disconnect wallet from selected provider
           ServerWallet.disconnectFromProvider()
 
           // Then connect to requested one
@@ -304,7 +304,7 @@ class IServerWallet implements Wallet, ServerHandlers {
         ServerWallet.walletCurrent.gnoWallet.connect(new GnoJSONRPCProvider(""))
       }
     } catch (err) {
-      console.error("Unable to disconnect from provider :", err)
+      console.error("Unable to disconnect from provider:", err)
     }
   }
 
@@ -314,7 +314,7 @@ class IServerWallet implements Wallet, ServerHandlers {
       try {
         this.walletCurrent.gnoWallet.connect(this.providerCurrent.gnoProvider)
       } catch (err) {
-        console.error("Unable to connect to provider :", err)
+        console.error("Unable to connect to provider:", err)
       }
     }
   }
@@ -323,7 +323,7 @@ class IServerWallet implements Wallet, ServerHandlers {
     try {
       this.walletMap = (await Storage.readMapString("WalletList")) || new Map()
     } catch (err) {
-      console.error("Unable to read wallet list :", err)
+      console.error("Unable to read wallet list:", err)
     }
   }
 
@@ -341,7 +341,7 @@ class IServerWallet implements Wallet, ServerHandlers {
         }
       }
     } catch (err) {
-      console.error("Unable to read current wallet :", err)
+      console.error("Unable to read current wallet:", err)
     }
     this.walletCurrent = undefined
   }
@@ -351,7 +351,7 @@ class IServerWallet implements Wallet, ServerHandlers {
       this.providerMap =
         (await Storage.readMapString("ProviderList")) || new Map()
     } catch (err) {
-      console.error("Unable to read provider list :", err)
+      console.error("Unable to read provider list:", err)
     }
   }
 
@@ -369,7 +369,7 @@ class IServerWallet implements Wallet, ServerHandlers {
         }
       }
     } catch (err) {
-      console.error("Unable to read current provider :", err)
+      console.error("Unable to read current provider:", err)
     }
     this.providerCurrent = undefined
   }

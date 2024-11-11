@@ -46,7 +46,7 @@ function Popup() {
   const NavButtonComponent = ({ screen }: ScreenProps) => {
     let icon: JSX.Element
 
-    // Icons used in bottom naviagtion
+    // Icons used in bottom navigation
     switch (screen) {
       case Screen.Wallet:
         icon = (
@@ -79,7 +79,7 @@ function Popup() {
 
     return (
       <button
-        className={activeScreen === screen ? "active" : ""}
+        className={activeScreen === screen ? "active": ""}
         onClick={() => setActiveScreen(screen)}
       >
         <svg

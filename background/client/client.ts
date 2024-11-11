@@ -16,7 +16,7 @@ export async function sendToBackground(
     data,
   })
   if (response.error) {
-    console.error("Got error from background :", response.error)
+    console.error("Got error from background:", response.error)
     throw new Error(response.error)
   }
   return response.response

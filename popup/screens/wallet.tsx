@@ -51,7 +51,7 @@ export default function WalletScreen() {
     setProviderListState(await ClientWallet.getProviderList())
   }
 
-  // States reseters
+  // States resetters
   const resetWalletInfos = () => {
     setWalletAddressState("")
     resetProviderInfos()
@@ -69,7 +69,7 @@ export default function WalletScreen() {
         await getProviderList()
         await getWalletProviderDetails()
       } catch (err) {
-        console.error("Unable to fetch initial states :", err)
+        console.error("Unable to fetch initial states:", err)
       }
     })
   }, [])
@@ -85,7 +85,7 @@ export default function WalletScreen() {
         await setWallet(wallet)
       } catch (err) {
         console.error(
-          `Wallet selection failed with name <${wallet}> and error : ${err})`,
+          `Wallet selection failed with name <${wallet}> and error: ${err})`,
         )
       }
     })
@@ -108,7 +108,7 @@ export default function WalletScreen() {
         await setProvider(provider)
       } catch (err) {
         console.error(
-          `Provider selection failed with name <${provider}> and error : ${err})`,
+          `Provider selection failed with name <${provider}> and error: ${err})`,
         )
       }
     })

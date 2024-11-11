@@ -23,7 +23,7 @@ class IServerSettings implements Settings, ServerHandlers {
         infos: {
           category: "Gnoweb Tweaks",
           name: "Direct transaction on Realms help",
-          help: "This add a button to make a transaction directly from a Realm help page on Gnoweb",
+          help: "This adds a button to make a transaction directly from a Realm help page on Gnoweb",
         },
         state: {
           state: { toggle: true },
@@ -107,7 +107,7 @@ class IServerSettings implements Settings, ServerHandlers {
       // Add setting for faster access
       const name = setting.details.infos.name
       if (this.settingMap.has(name)) {
-        console.error(`Setting with this name already exists : ${name}`)
+        console.error(`Setting with this name already exists: ${name}`)
       } else {
         this.settingMap.set(name, setting)
       }

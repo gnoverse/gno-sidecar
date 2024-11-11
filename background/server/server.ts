@@ -57,7 +57,7 @@ class IServer {
             target: { tabId },
             files: files,
           })
-          console.debug("Injection result :", result)
+          console.debug("Injection result:", result)
         } catch (err) {
           console.error(`Failed to execute script: ${err}`)
         }
@@ -72,7 +72,7 @@ class IServer {
     })
   }
 
-  // Listen for messages fron runtime and route them to the handler
+  // Listen for messages from runtime and route them to the handler
   // corresponding to their type
   private listenForMessages(): void {
     chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
@@ -120,7 +120,7 @@ class IServer {
     // Check if a message handler is missing
     for (const message of BackgroundMessages) {
       if (!this.handlers.has(message)) {
-        console.error(`No handler set for message : ${message}`)
+        console.error(`No handler set for message: ${message}`)
       }
     }
 
