@@ -35,7 +35,7 @@ class IServerSettings implements Settings, ServerHandlers {
           Server.addContentScript({
             name: details.infos.name,
             file: "scripts/gnowebTxButton.js",
-            match: /^.+\/r\/.+\?help/, // Gnoweb help page url
+            match: /^.+\/r\/.+\$help/, // Gnoweb help page url
           })
         } else {
           Server.removeContentScript(details.infos.name)
