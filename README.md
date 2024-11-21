@@ -17,8 +17,9 @@ This extension is neither intended to be secure in any way nor to provide a good
 Prebuilt extensions for different browsers are available on the [release page](https://github.com/gnoverse/gno-sidecar/releases).
 
 To install them:
-• Download the archive appropriate for the target browser
-• Follow the installation procedure for [Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing) or [Chromium-based browsers](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked)
+
+- Download the archive appropriate for the target browser
+- Follow the installation procedure for [Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing) or [Chromium-based browsers](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked)
 
 ## Contribute
 
