@@ -1,0 +1,71 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Semantic Action requires this to create tags
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Semantic Action requires nodejs but won't run in checkout dir
+      - name: Copy .tool-versions to home
+        run: cp .tool-versions $HOME
+
+      - name: Install node using asdf
+        uses: asdf-vm/actions/install@v3
+
+      - name: Get npm cache path
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+      - name: Cache npm cache directory
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Build extension for all browsers
+        run: BROWSER=all make build
+
+      - name: Semantic Release (Dry Run)
+        if: github.event_name == 'pull_request'
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          dry_run: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Semantic Release
+        if: github.event_name != 'pull_request'
+        uses: cycjimmy/semantic-release-action@v4
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Archive browser extensions
+        if: steps.semantic.outputs.new_release_published == 'true' && github.event_name != 'pull_request'
+        run: |
+          mkdir -p "${GITHUB_WORKSPACE}/archives"
+          for browser in chrome edge firefox; do
+            cd "${GITHUB_WORKSPACE}/dist/$browser"
+            zip -r "${GITHUB_WORKSPACE}/archives/$browser-gno-sidecar-${{ steps.semantic.outputs.new_release_version }}.zip" *
+          done
+
+      - name: Upload extensions to Github Release
+        if: steps.semantic.outputs.new_release_published == 'true' && github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.semantic.outputs.new_release_git_tag }}
+          body: ${{ steps.semantic.outputs.new_release_notes }}
+          files: ${{ github.workspace }}/archives/*.zip
